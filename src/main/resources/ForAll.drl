@@ -1,0 +1,27 @@
+package com.sample
+ 
+import com.sample.DroolsTest.Message;
+import com.sample.DroolsTest.Square;
+ 
+rule "SpongeBob"
+    when
+       forall( $square : Square( type == 'english')
+                     Square( this == $square, color == 'yello'))
+    then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
+
+rule "RedBus"
+    when
+       forall( $square : Square( color == 'red'))
+then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
+
+rule "Not SpongeBob"
+    when
+      not( forall( $square : Square( type == 'english')
+                     Square( this == $square, color == 'yello')))
+then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end

@@ -1,0 +1,39 @@
+package com.sample
+ 
+import com.sample.DroolsTest.Message;
+ 
+rule "Hello World from group1"
+    activation-group "group1"
+    salience 150
+    when
+        m : Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
+
+rule "GoodBye from group1"
+    activation-group "group1"
+    salience 50
+    when
+        Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
+
+rule "Hello World from group2"
+    activation-group "group2"
+    salience 50
+    when
+        Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
+
+rule "GoodBye from group2"
+    activation-group "group2"
+    salience 100
+    when
+        Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
