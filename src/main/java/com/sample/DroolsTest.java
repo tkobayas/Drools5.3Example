@@ -31,6 +31,8 @@ public class DroolsTest {
             doFromAccumulateExample();
             doFromCollectExample();
             doMemberOfExample();
+            doActivationGroup();
+            doForAll();
         } catch (Throwable t) {
             t.printStackTrace();
         } finally {
@@ -213,6 +215,32 @@ public class DroolsTest {
         fire("MemberOf.drl", facts);
     }
 
+    private static void doForAll() throws Exception {
+        List<Object> facts = new ArrayList<Object>();
+        Message message = new Message();
+        message.setMessage("Hello World");
+        message.setStatus(Message.HELLO);
+
+        Square sq = new Square();
+        sq.setColor("yello");
+        sq.setType("english");
+        facts.add(sq);
+        fire("ForAll.drl", facts);
+
+        sq.setColor("red");
+        facts.add(sq);
+        fire("ForAll.drl", facts);
+    }
+
+    private static void doActivationGroup() throws Exception {
+        List<Object> facts = new ArrayList<Object>();
+        Message message = new Message();
+        message.setMessage("Hello World");
+        message.setStatus(Message.HELLO);
+        facts.add(message);
+        fire("ActivationGroup.drl", facts);
+    }
+
     private static void fire(String drl, List<Object> facts) throws Exception {
         System.out.println("*****\n* Example: " + drl + "\n*****");
         KnowledgeBase kbase = readKnowledgeBase(drl);
@@ -293,5 +321,27 @@ public class DroolsTest {
         public void setPrice(int price) {
             this.price = price;
         }
+    }
+
+    public static class Square {
+        private String type;
+        private String color;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+
     }
 }
