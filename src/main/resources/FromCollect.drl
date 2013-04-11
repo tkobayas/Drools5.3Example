@@ -1,0 +1,17 @@
+package com.sample
+ 
+import com.sample.DroolsTest.Item
+import java.util.LinkedList
+
+/**
+* for more information, please read following document.
+* JBoss Rules 5 Reference Guide 26.8. Pet Store Example: Evaluate Agenda Group from PetStore.drl
+* https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_BRMS_Platform/5/html-single/JBoss_Rules_5_Reference_Guide/index.html#Pet_Store_Example_Evaluate_Agenda_Group_from_PetStore.drl
+**/
+
+rule "Hello World"
+    when
+        $items : LinkedList() from collect (Item(price > 130))
+    then
+        System.out.println("The number of items which costs more than 130 is " + $items.size());
+end

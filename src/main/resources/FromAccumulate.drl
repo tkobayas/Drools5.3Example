@@ -1,0 +1,18 @@
+package com.sample
+ 
+import com.sample.DroolsTest.Item
+import java.util.List;
+
+/**
+* for more information, please read following document.
+* JBoss Rules 5 Reference Guide 16.32. Code for the Conditional Element Accumulate's Functions
+* https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_BRMS_Platform/5/html-single/JBoss_Rules_5_Reference_Guide/index.html#Code_for_the_Conditional_Element_accumulates_Functions
+**/
+
+rule "Hello World"
+    when
+        item : Item()
+        $price : Number() from accumulate (Item($p : price), max($p))
+    then
+        System.out.println("added item name is " + item.getName() + ". Most expensice price is " + $price);
+end
