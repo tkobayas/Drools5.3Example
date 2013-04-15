@@ -215,23 +215,35 @@ public class DroolsTest {
         fire("MemberOf.drl", facts);
     }
 
+    /**
+     * for more information about "ForAll", please read following document. JBoss
+     * Rules 5 Reference Guide 16.22. The Conditional Element Forall.
+     * https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_BRMS_Platform/5/html-single/JBoss_Rules_5_Reference_Guide/index.html#The_Conditional_Element_forall
+     **/
     private static void doForAll() throws Exception {
         List<Object> facts = new ArrayList<Object>();
         Message message = new Message();
         message.setMessage("Hello World");
         message.setStatus(Message.HELLO);
 
-        Square sq = new Square();
-        sq.setColor("yello");
-        sq.setType("english");
-        facts.add(sq);
-        fire("ForAll.drl", facts);
-
-        sq.setColor("red");
-        facts.add(sq);
+        Square sq1 = new Square();
+        sq1.setColor("yello");
+        sq1.setType("english");
+        facts.add(sq1);
+        
+        Square sq2 = new Square();
+        sq2.setColor("blue");
+        sq2.setType("english");
+        facts.add(sq2);
+        
         fire("ForAll.drl", facts);
     }
 
+    /**
+     * for more information about "ActivationGroup", please read following document. JBoss
+     * Rules 5 Reference Guide 5.7.
+     * https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_BRMS_Platform/5/html-single/JBoss_Rules_5_Reference_Guide/index.html#ActivationGroup
+     **/
     private static void doActivationGroup() throws Exception {
         List<Object> facts = new ArrayList<Object>();
         Message message = new Message();

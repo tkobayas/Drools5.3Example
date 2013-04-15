@@ -1,7 +1,12 @@
 package com.sample
  
 import com.sample.DroolsTest.Message;
- 
+
+/**
+* for more information about "ActivationGroup", please read following document. JBoss
+* Rules 5 Reference Guide 5.7.
+* https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_BRMS_Platform/5/html-single/JBoss_Rules_5_Reference_Guide/index.html#ActivationGroup
+*/
 rule "Hello World from group1"
     activation-group "group1"
     salience 150
