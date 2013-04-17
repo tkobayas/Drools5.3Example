@@ -5,4 +5,7 @@
   <version>0.1-SNAPSHOT</version>
   <name>drools5.3Example</name>
   <description>sample for drools5.3</description>
+  <packaging>jar</packaging>
+  
+
 </project>
