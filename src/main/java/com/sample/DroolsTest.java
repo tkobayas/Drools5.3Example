@@ -22,15 +22,15 @@ public class DroolsTest {
 
     public static final void main(String[] args) {
         try {
-            doGeneralExample();
-            doNoLoopExample();
-            doLockOnActiveExample();
-            doDialectExample();
-            doDeclareExample();
-            doFromExample();
+//            doGeneralExample();
+//            doNoLoopExample();
+//            doLockOnActiveExample();
+//            doDialectExample();
+//            doDeclareExample();
+//            doFromExample();
             doFromAccumulateExample();
-            doFromCollectExample();
-            doMemberOfExample();
+//            doFromCollectExample();
+//            doMemberOfExample();
         } catch (Throwable t) {
             t.printStackTrace();
         } finally {
@@ -142,18 +142,49 @@ public class DroolsTest {
      **/
     private static void doFromAccumulateExample() throws Exception {
         List<Object> facts = new ArrayList<Object>();
-        Item item = new Item();
-        item.setName("apple");
-        item.setPrice(120);
-        facts.add(item);
-        item = new Item();
-        item.setName("banana");
-        item.setPrice(100);
-        facts.add(item);
-        item = new Item();
-        item.setName("cherry");
-        item.setPrice(150);
-        facts.add(item);
+        Order order1 = new Order();
+        order1.setName("order1");
+        List<Item> itemList1 = new ArrayList<Item>();
+        Item item1_1 = new Item();
+        item1_1.setName("apple");
+        item1_1.setPrice(120);
+        itemList1.add(item1_1);
+        Item item1_2 = new Item();
+        item1_2.setName("banana");
+        item1_2.setPrice(100);
+        itemList1.add(item1_2);
+        Item item1_3 = new Item();
+        item1_3.setName("cherry");
+        item1_3.setPrice(150);
+        itemList1.add(item1_3);
+        order1.setItemList(itemList1);
+        facts.add(order1);
+        Order order2 = new Order();
+        order2.setName("order2");
+        List<Item> itemList2 = new ArrayList<Item>();
+        Item item2_1 = new Item();
+        item2_1.setName("apple");
+        item2_1.setPrice(130);
+        itemList2.add(item2_1);
+        Item item2_2 = new Item();
+        item2_2.setName("banana");
+        item2_2.setPrice(100);
+        itemList2.add(item2_2);
+        Item item2_3 = new Item();
+        item2_3.setName("cherry");
+        item2_3.setPrice(150);
+        itemList2.add(item2_3);
+        order2.setItemList(itemList2);
+        facts.add(order2);
+        
+        for (Item item: order1.itemList) {
+            facts.add(item);
+        }
+        
+        for (Item item: order2.itemList) {
+            facts.add(item);
+        }
+        
         fire("FromAccumulate.drl", facts);
     }
 
@@ -169,16 +200,16 @@ public class DroolsTest {
         List<Object> facts = new ArrayList<Object>();
         Item item = new Item();
         item.setName("apple");
-        item.setPrice(120);
-        facts.add(item);
-        item = new Item();
-        item.setName("banana");
-        item.setPrice(100);
-        facts.add(item);
-        item = new Item();
-        item.setName("cherry");
         item.setPrice(150);
         facts.add(item);
+        Item item2 = new Item();
+        item2.setName("banana");
+        item2.setPrice(120);
+        facts.add(item2);
+        Item item3 = new Item();
+        item3.setName("cherry");
+        item3.setPrice(100);
+        facts.add(item3);        
         fire("FromCollect.drl", facts);
     }
 
@@ -220,7 +251,7 @@ public class DroolsTest {
         KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory
                 .newFileLogger(ksession, "test");
         // go !
-
+        
         for (Object fact : facts) {
             ksession.insert(fact);
         }
@@ -292,6 +323,25 @@ public class DroolsTest {
 
         public void setPrice(int price) {
             this.price = price;
+        }
+    }
+    
+    public static class Order {
+        
+        private String name;
+        private List<Item> itemList;
+        
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+        public List<Item> getItemList() {
+            return itemList;
+        }
+        public void setItemList(List<Item> itemList) {
+            this.itemList = itemList;
         }
     }
 }

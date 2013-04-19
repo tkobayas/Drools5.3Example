@@ -1,6 +1,7 @@
 package com.sample
  
 import com.sample.DroolsTest.Item
+import com.sample.DroolsTest.Order
 import java.util.List;
 
 /**
@@ -11,8 +12,8 @@ import java.util.List;
 
 rule "Hello World"
     when
-        item : Item()
-        $price : Number() from accumulate (Item($p : price), max($p))
+        $order : Order()
+        $total : Number() from accumulate ($item : Item(this memberOf $order.itemList), sum($item.getPrice()))
     then
-        System.out.println("added item name is " + item.getName() + ". Most expensice price is " + $price);
+        System.out.println("Order Name:"+$order.getName()+", Total Price:"+$total);
 end
