@@ -22,15 +22,17 @@ public class DroolsTest {
 
     public static final void main(String[] args) {
         try {
-//            doGeneralExample();
-//            doNoLoopExample();
-//            doLockOnActiveExample();
-//            doDialectExample();
-//            doDeclareExample();
-//            doFromExample();
+            doGeneralExample();
+            doNoLoopExample();
+            doLockOnActiveExample();
+            doDialectExample();
+            doDeclareExample();
+            doFromExample();
             doFromAccumulateExample();
-//            doFromCollectExample();
-//            doMemberOfExample();
+            doFromCollectExample();
+            doMemberOfExample();
+            doActivationGroup();
+            doForAll();
         } catch (Throwable t) {
             t.printStackTrace();
         } finally {
@@ -244,6 +246,44 @@ public class DroolsTest {
         fire("MemberOf.drl", facts);
     }
 
+    /**
+     * for more information about "ForAll", please read following document. JBoss
+     * Rules 5 Reference Guide 16.22. The Conditional Element Forall.
+     * https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_BRMS_Platform/5/html-single/JBoss_Rules_5_Reference_Guide/index.html#The_Conditional_Element_forall
+     **/
+    private static void doForAll() throws Exception {
+        List<Object> facts = new ArrayList<Object>();
+        Message message = new Message();
+        message.setMessage("Hello World");
+        message.setStatus(Message.HELLO);
+
+        Square sq1 = new Square();
+        sq1.setColor("yello");
+        sq1.setType("english");
+        facts.add(sq1);
+        
+        Square sq2 = new Square();
+        sq2.setColor("blue");
+        sq2.setType("english");
+        facts.add(sq2);
+        
+        fire("ForAll.drl", facts);
+    }
+
+    /**
+     * for more information about "ActivationGroup", please read following document. JBoss
+     * Rules 5 Reference Guide 5.7.
+     * https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_BRMS_Platform/5/html-single/JBoss_Rules_5_Reference_Guide/index.html#ActivationGroup
+     **/
+    private static void doActivationGroup() throws Exception {
+        List<Object> facts = new ArrayList<Object>();
+        Message message = new Message();
+        message.setMessage("Hello World");
+        message.setStatus(Message.HELLO);
+        facts.add(message);
+        fire("ActivationGroup.drl", facts);
+    }
+
     private static void fire(String drl, List<Object> facts) throws Exception {
         System.out.println("*****\n* Example: " + drl + "\n*****");
         KnowledgeBase kbase = readKnowledgeBase(drl);
@@ -342,6 +382,26 @@ public class DroolsTest {
         }
         public void setItemList(List<Item> itemList) {
             this.itemList = itemList;
+        }
+
+    public static class Square {
+        private String type;
+        private String color;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
         }
     }
 }

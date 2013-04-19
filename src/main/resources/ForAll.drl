@@ -1,0 +1,32 @@
+package com.sample
+ 
+import com.sample.DroolsTest.Message;
+import com.sample.DroolsTest.Square;
+
+/**
+* for more information about "ForAll", please read following document. JBoss
+* Rules 5 Reference Guide 16.22. The Conditional Element Forall.
+* https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_BRMS_Platform/5/html-single/JBoss_Rules_5_Reference_Guide/index.html#The_Conditional_Element_forall
+**/
+rule "All SpongeBob is yello"
+    when
+       forall( $square : Square( type == 'english')
+                     Square( this == $square, color == 'yello'))
+    then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
+
+rule "Find out SpongeBob"
+    when
+       $square : Square( type == 'english' && color == 'yello')
+    then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
+
+rule "Not SpongeBob"
+    when
+       not (forall( $square : Square( type == 'english')
+                     Square( this == $square, color == 'yello')))
+    then
+        System.out.println("rule name : " + kcontext.getRule().getName() );
+end
