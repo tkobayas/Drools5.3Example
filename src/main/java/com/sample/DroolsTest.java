@@ -383,7 +383,8 @@ public class DroolsTest {
         public void setItemList(List<Item> itemList) {
             this.itemList = itemList;
         }
-
+    }
+    
     public static class Square {
         private String type;
         private String color;
