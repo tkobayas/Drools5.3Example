@@ -8,37 +8,53 @@
   <packaging>jar</packaging>
   
   <properties>
-  <main.class>com.sample.DroolsTest</main.class>
-  <drools.version>5.5.0.Final</drools.version>
+    <main.class>com.sample.DroolsTest</main.class>
+    <drools.version>5.5.0.Final</drools.version>
+    <exec.plugin.version>1.2.1</exec.plugin.version>
   </properties>
   
   <dependencies>
       <!-- Drools engine -->
     <dependency>
-        <groupId>org.drools</groupId>
-        <artifactId>drools-core</artifactId>
-        <version>${drools.version}</version>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-core</artifactId>
+      <version>${drools.version}</version>
     </dependency>
 
     <dependency>
-        <groupId>org.drools</groupId>
-        <artifactId>drools-compiler</artifactId>
-        <version>${drools.version}</version>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-compiler</artifactId>
+      <version>${drools.version}</version>
     </dependency> 
     
     <dependency>
-    <groupId>xstream</groupId>
-    <artifactId>xstream</artifactId>
-    <version>1.2</version>
-</dependency>
-            
+      <groupId>xstream</groupId>
+      <artifactId>xstream</artifactId>
+      <version>1.2</version>
+    </dependency>
   </dependencies>
 
-
-<!-- 
-     <build>
-      <finalName>${project.artifactId}</finalName>
+  <build>
+    <finalName>${project.artifactId}</finalName>
       <plugins>
+ <!-- This plugin permits the execution of this DroolsTest.java through 
+      mvn exec:java command -->
+	<plugin>
+  	  <groupId>org.codehaus.mojo</groupId>
+	    <artifactId>exec-maven-plugin</artifactId>
+	    <version>${exec.plugin.version}</version>
+	    <executions>
+		  <execution>
+		    <goals>
+			  <goal>java</goal>
+			</goals>
+		  </execution>
+	  </executions>
+	  <configuration>
+	    <mainClass>${main.class}</mainClass>
+	  </configuration>
+	</plugin>
+<!-- 
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -77,8 +93,7 @@
                </filters>
             </configuration>
          </plugin>
+-->
       </plugins>
    </build>
--->
-  
 </project>
