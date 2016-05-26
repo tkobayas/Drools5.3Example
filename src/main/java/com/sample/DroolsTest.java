@@ -22,6 +22,7 @@ public class DroolsTest {
 
     public static final void main(String[] args) {
         try {
+            System.out.println("Hello!");
             doGeneralExample();
             doNoLoopExample();
             doLockOnActiveExample();
